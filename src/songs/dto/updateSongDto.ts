@@ -1,24 +1,28 @@
 import { IsArray, IsDateString, IsMilitaryTime, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
-export class CreateSongDTO{
+export class UpdateSongDto{
     @IsString()
     @IsNotEmpty()
-     title:string;
+    @IsOptional()
+    readonly title;
 
     @IsArray()
     @IsNumber({},{each:true})
     @IsNotEmpty()
-     artists;
+    @IsOptional()
+    readonly artists;
 
     @IsDateString()
     @IsNotEmpty()
-     releasedDate:Date;
+    @IsOptional()
+    readonly releasedDate:Date;
 
     @IsMilitaryTime()
     @IsNotEmpty()
-     duration :Date;
+    @IsOptional()
+    readonly duration :Date;
 
     @IsString()
     @IsOptional()
-     lyrics:string;
+    readonly lyrics:string;
 }
