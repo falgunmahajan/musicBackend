@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/createUser.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
@@ -11,16 +11,21 @@ import {v4 as uuid4} from "uuid";
 export class UserService {
     constructor(@InjectRepository(User) private readonly userRepo:Repository<User>){}
     async signUp(userDto:CreateUserDto):Promise<User>{
-        const user = new User()
-        user.firstName = userDto.firstName;
-        user.lastName = userDto.lastName;
-        user.email = userDto.email;
-        user.apiKey = uuid4();
-        const salt = await bcrypt.genSalt();
-        user.password = await bcrypt.hash(userDto.password,salt);
-        const NewUser = await this.userRepo.save(user);
-        delete NewUser.password;
-        return NewUser
+        try {
+            const user = new User()
+            user.firstName = userDto.firstName;
+            user.lastName = userDto.lastName;
+            user.email = userDto.email;
+            user.apiKey = uuid4();
+            const salt = await bcrypt.genSalt();
+            user.password = await bcrypt.hash(userDto.password,salt);
+            const NewUser = await this.userRepo.save(user);
+            delete NewUser.password;
+            return NewUser
+        } catch (error) {
+          if(error.driverError.code==="23505"){}
+        }
+    
     }
 
     async findOne(data : CreateLoginDto):Promise<User>{
