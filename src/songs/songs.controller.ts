@@ -11,12 +11,15 @@ import {
   Post,
   Put,
   Query,
+  Req,
   Scope,
+  UseGuards,
 } from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { CreateSongDTO } from './dto/createSongsDto';
 import { Connection } from 'src/common/constants/connection';
 import { UpdateSongDto } from './dto/updateSongDto';
+import { ArtistJwtGuard } from 'src/auth/artists-jwt.guard';
 
 // @Controller({path:'songs',scope:Scope.REQUEST})
 @Controller('songs')
@@ -30,7 +33,10 @@ export class SongsController {
     );
   }
   @Post()
-  create(@Body() createSongDto: CreateSongDTO) {
+  @UseGuards(ArtistJwtGuard)
+  create(@Body() createSongDto: CreateSongDTO , @Req() request) {
+    console.log(request.user);
+    
     return this.songsService.create(createSongDto);
   }
 
