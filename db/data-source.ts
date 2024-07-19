@@ -3,6 +3,10 @@ import {
   TypeOrmModuleAsyncOptions,
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
+import { Artist } from 'src/artist/artist.entity';
+import { Playlist } from 'src/playlists/playlist.entity';
+import { Song } from 'src/songs/songs.entity';
+import { User } from 'src/user/user.entity';
 import { DataSource, DataSourceOptions } from 'typeorm';
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],
@@ -16,7 +20,7 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       username: configService.get<string>('dbUser'),
       password: configService.get<string>('dbPass'),
       database: configService.get<string>('dbName'),
-      entities: ['dist/**/*.entity.js'],
+      entities: [User,Artist,Playlist,Song],
       synchronize: false,
       migrations: ['dist/db/migrations/*.js'],
     };

@@ -6,14 +6,21 @@ import { CreateLoginDto } from './dto/createLogin.dto';
 import { JwtAuthGuard } from './jwt.guard';
 import { ValidateTokenDto } from './dto/ValidateToken.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('auth')
+@ApiTags('auth')
 export class AuthController {
   constructor(
     private userService: UserService,
     private authService: AuthService,
   ) {}
   @Post('signup')
+  @ApiOperation({summary:"Register new user"})
+  @ApiResponse({
+    status:201,
+    description:"It will return the user in the response"
+  })
   signUp(@Body() createUserDto: CreateUserDto) {
     return this.userService.signUp(createUserDto);
   }
