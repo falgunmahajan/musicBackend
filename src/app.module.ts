@@ -6,33 +6,32 @@ import { LoggerMiddleware } from './common/middleware/logger/logger.middleware';
 import { DevConfigService } from './common/providers/DevConfig.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { Song } from './songs/songs.entity';
-import { Artist } from './artist/artist.entity';
-import { User } from './user/user.entity';
-import { Playlist } from './playlists/playlist.entity';
 import { PlaylistsModule } from './playlists/playlists.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { ArtistModule } from './artist/artist.module';
+import { dataSourceOptions, typeOrmAsyncConfig } from 'db/data-source';
+import { SeedModule } from './seed/seed.module';
+import { ConfigModule } from '@nestjs/config';
+import configuration from './config/configuration';
+import { validate } from 'env.validation';
 
 const devConfig = {port:3000}
 const proConfig =  {port:4000}
 @Module({
   imports: [SongsModule,
-    TypeOrmModule.forRoot({
-      type:"postgres",
-      database:'MusicApp',
-      host:"localhost",
-      port:5432,
-      username:"postgres",
-      password:"falgunmahajan",
-      entities:[Song, Artist, User, Playlist],
-      synchronize:true
+    TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
+    ConfigModule.forRoot({
+      envFilePath:['.env.development','.env.production'],
+      isGlobal:true,
+      load:[configuration],
+      validate
     }),
     PlaylistsModule,
     AuthModule,
     UserModule,
-    ArtistModule
+    ArtistModule,
+    SeedModule
   ],
   controllers: [AppController],
   providers: [AppService,{

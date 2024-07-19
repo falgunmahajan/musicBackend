@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, HttpStatus, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/createUser.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
@@ -23,7 +23,12 @@ export class UserService {
             delete NewUser.password;
             return NewUser
         } catch (error) {
-          if(error.driverError.code==="23505"){}
+            console.log(error);
+            
+          if(error.driverError.code==="23505"){
+            throw new ConflictException("Email already exists",{description:"AccountExists"})
+          }
+          throw new InternalServerErrorException()
         }
     
     }

@@ -4,7 +4,7 @@ import { Entity, JoinColumn, ManyToMany, OneToOne, PrimaryGeneratedColumn } from
 
 @Entity('artists')
 export class Artist{
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id:number
 
     @OneToOne(()=>User)

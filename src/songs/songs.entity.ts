@@ -4,7 +4,7 @@ import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColum
 
 @Entity('songs')
 export class Song{
-@PrimaryGeneratedColumn()
+@PrimaryGeneratedColumn('uuid')
 id:number;
 
 @Column()
