@@ -20,9 +20,11 @@ import { CreateSongDTO } from './dto/createSongsDto';
 import { Connection } from 'src/common/constants/connection';
 import { UpdateSongDto } from './dto/updateSongDto';
 import { ArtistJwtGuard } from 'src/auth/artists-jwt.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 // @Controller({path:'songs',scope:Scope.REQUEST})
 @Controller('songs')
+@ApiTags('songs')
 export class SongsController {
   constructor(
     private songsService: SongsService,
