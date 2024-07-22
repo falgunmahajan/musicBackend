@@ -28,11 +28,11 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 export class SongsController {
   constructor(
     private songsService: SongsService,
-    @Inject('CONNECTION') private connection: Connection,
+    // @Inject('CONNECTION') private connection: Connection,
   ) {
-    console.log(
-      `this is connection string ${this.connection.CONNECTION_STRING}`,
-    );
+    // console.log(
+    //   `this is connection string ${this.connection.CONNECTION_STRING}`,
+    // );
   }
   @Post()
   @UseGuards(ArtistJwtGuard)

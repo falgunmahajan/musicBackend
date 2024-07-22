@@ -18,9 +18,10 @@ import { Artist } from 'src/artist/artist.entity';
   //   provide:SongsService,
   //   useValue:mockSongsService
   // },
-  {
-    provide:"CONNECTION",
-    useValue:connection
-  }]
+  // {
+  //   provide:"CONNECTION",
+  //   useValue:connection
+  // }
+]
 })
 export class SongsModule {}
