@@ -12,13 +12,13 @@ export class CreateSongDTO{
 
     @IsDateString()
     @IsNotEmpty()
-     releasedDate:Date;
+     releasedDate;
 
     @IsMilitaryTime()
     @IsNotEmpty()
-     duration :Date;
+     duration;
 
     @IsString()
     @IsOptional()
-     lyrics:string;
+     lyrics?:string;
 }

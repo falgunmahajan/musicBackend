@@ -15,6 +15,7 @@ import { SeedModule } from './seed/seed.module';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
 import { validate } from 'env.validation';
+import { EventsModule } from './events/events.module';
 
 const devConfig = {port:3000}
 const proConfig =  {port:4000}
@@ -31,7 +32,8 @@ const proConfig =  {port:4000}
     AuthModule,
     UserModule,
     ArtistModule,
-    SeedModule
+    SeedModule,
+    EventsModule
   ],
   controllers: [AppController],
   providers: [AppService,{

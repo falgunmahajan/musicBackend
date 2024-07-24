@@ -4,25 +4,25 @@ export class UpdateSongDto{
     @IsString()
     @IsNotEmpty()
     @IsOptional()
-    readonly title;
+    readonly title?;
 
     @IsArray()
     @IsNumber({},{each:true})
     @IsNotEmpty()
     @IsOptional()
-    readonly artists;
+    readonly artists?;
 
     @IsDateString()
     @IsNotEmpty()
     @IsOptional()
-    readonly releasedDate:Date;
+    readonly releasedDate?:Date;
 
     @IsMilitaryTime()
     @IsNotEmpty()
     @IsOptional()
-    readonly duration :Date;
+    readonly duration? :Date;
 
     @IsString()
     @IsOptional()
-    readonly lyrics:string;
+    readonly lyrics?:string;
 }

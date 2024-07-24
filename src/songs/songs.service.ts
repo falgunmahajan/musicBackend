@@ -12,7 +12,7 @@ import {
 import { Artist } from 'src/artist/artist.entity';
 
 @Injectable({
-  scope: Scope.TRANSIENT,
+  // scope: Scope.TRANSIENT,
 })
 export class SongsService {
   constructor(
